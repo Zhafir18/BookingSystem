@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookingSystem.DataAccsess\BookingSystem.DataAccsess.csproj" />
+    <ProjectReference Include="..\BookingSystem.DataModel\BookingSystem.DataModel.csproj" />
+    <ProjectReference Include="..\BookingSystem.Provider\BookingSystem.Provider.csproj" />
+  </ItemGroup>
+
+</Project>

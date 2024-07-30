@@ -1,0 +1,155 @@
+﻿@using BookingSystem.DataModel.Master.Resource;
+@model CreateEditResVM
+
+@{
+    ViewData["Title"] = "Resource Form";
+}
+
+<div class="container mt-5">
+    <h1>@ViewData["Title"]</h1>
+    <form method="post" asp-action="Upsert" class="upsert-form" enctype="multipart/form-data">
+        @if (Model.ID > 0)
+        {
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="Icon" />
+        }
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Resource Name</label>
+            <div class="col-sm-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-sm-2 col-form-label">Resource Code</label>
+            <div class="col-sm-10 border p-3">
+                <a class="btn btn-success mb-2" id="add-new-code"><i class="fas fa-plus-circle"></i> Add New Code</a>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>IsActive</th>
+                                <th>Resource Code</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="codes-container">
+                                @for (int i = 0; i < Model.code.Count; i++)
+                                {
+                                    <tr>
+                                        @if (Model.code[i].ID > 0)
+                                        {
+                                            <input type="hidden" asp-for="@Model.code[i].ID" class="data-id"/>
+                                        }
+                                        <td>
+                                            <input asp-for="@Model.code[i].IsActive" name="code[@i].IsActive" />
+                                            <span asp-validation-for="@Model.code[i].IsActive"></span>
+                                        </td>
+                                        <td>
+                                            <input asp-for="@Model.code[i].ResourceCode" name="code[@i].ResourceCode" />
+                                            <span asp-validation-for="@Model.code[i].ResourceCode"></span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="remove-code-button">Remove</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Status" class="col-sm-2 col-form-label">Status*</label>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input asp-for="Status" type="checkbox" class="form-check-input" />
+                    <label class="form-check-label" for="Status">Active</label>
+                </div>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">File*</label>
+            <div class="col-sm-10">
+                @if (!string.IsNullOrEmpty(Model.Icon))
+                {
+                    <img src="http://localhost:5156/api/Resource/images/@Model.Icon" alt="Image" class="img-thumbnail mb-2" />
+                }
+                <input asp-for="file" type="file" class="form-control-file" />
+                <span asp-validation-for="file" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a class="btn btn-secondary" asp-action="Index">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('add-new-code').addEventListener('click', function () {
+            var container = document.getElementById('codes-container');
+            var index = container.getElementsByTagName('tr').length;
+            var row = document.createElement('tr');
+
+            row.innerHTML = `
+                        <input name="code[${index}].ID" value="0" />
+                        <td>
+                            <input type="checkbox" name="code[${index}].IsActive" value="true" class="form-check-input" />
+                            // <input type="hidden" name="code[${index}].IsActive" value="false" />
+                            <span asp-validation-for="code[${index}].IsActive" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input name="code[${index}].ResourceCode" type="text" class="form-control" />
+                            <span asp-validation-for="code[${index}].ResourceCode" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove-code-button">Remove</button>
+                        </td>
+                    `;
+
+            container.appendChild(row);
+
+            // Add event listener to the new remove button
+            row.querySelector('.remove-code-button').addEventListener('click', function () {
+                handleRemoveRow(row);
+            });
+        });
+
+        // Add event listeners to initial remove buttons
+        document.querySelectorAll('.remove-code-button').forEach(button => {
+            button.addEventListener('click', function () {
+                handleRemoveRow(button.closest('tr'));
+            });
+        });
+
+        function handleRemoveRow(row) {
+            var idInput = row.querySelector('input[name$=".ID"]');
+            var id = idInput ? idInput.value : null;
+
+            if (id && id !== "0") {
+                var xhr = new XMLHttpRequest();
+                xhr.open("DELETE", `http://localhost:5156/api/Resource/code?id=${id}`, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log('Successfully deleted:', xhr.responseText);
+                    } else {
+                        console.error('Failed to delete:', xhr.responseText);
+                    }
+                };
+                xhr.onerror = function () {
+                    console.error('Request error');
+                };
+                xhr.send();
+            }
+
+            row.remove();
+        }
+    </script>
+}

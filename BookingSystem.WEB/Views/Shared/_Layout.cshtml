@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookingSystem.WEB</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookingSystem.WEB.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-2 bg-light d-md-block">
+                <div class="position-sticky">
+                    <!-- Logo -->
+                    <img id="sidebar-logo" src="~/images/kino.png" alt="BookingSystem Logo" class="img-fluid mb-3" />
+
+                    <!-- Navigation Links -->
+                    <ul class="nav flex-column side p-2">
+                        <li class="nav-item menu-item">
+                            <h5>SETTING</h5>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                Menu
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                Global Setup
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-item">
+                            <h5>MASTER DATA</h5>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Master Data Booking
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Resource" asp-action="Index">
+                                Master Data Resource
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index">
+                                Master Data Room
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Master Data User
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">
+                                Master Data Role
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item menu-item">
+                            <h5>Transaction</h5>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                History
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Report
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Resource
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Resource Checker
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Catering
+                            </a>
+                        </li>
+
+                        <li class="nav-item menu-item">
+                            <h5>DISPLAY</h5>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                Pantry
+                            </a>
+                        </li>
+                        <li class="nav-item submenu-item">
+                            <a class="nav-link" asp-area="" asp-controller="BookingCode" asp-action="Index">
+                                Request
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10">
+                <header>
+                    <nav class="navbar navbar-expand-lg navbar-light border-bottom box-shadow mb-3">
+                        <div class="container-fluid">
+                            <div class="d-flex justify-content-between w-100">
+                                <h1>Spectrum</h1>
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="navbar-collapse collapse d-lg-flex justify-content-end">
+                                    <ul class="navbar-nav flex-grow-1 d-flex justify-content-end align-items-center">
+                                        <li class="nav-item d-flex align-items-center text-white user">
+                                            <div class="row mb-0">
+                                                <div class="col text-end">
+                                                    <h5 class="mb-0">Welcome,</h5>
+                                                </div>
+                                                <div class="text-end">
+                                                    <p class="mb-0">Administrator as admin</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item date d-flex align-items-center">
+                                            <span class="nav-link text-dark mb-0" id="current-date"></span>
+                                        </li>
+                                        <li class="nav-item logout d-flex align-items-center">
+                                            <a class="nav-link text-white mb-0" href="/logout" role="button">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                </header>
+                <div class="container-fluid">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - BookingSystem.WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateElement = document.getElementById('current-date');
+            const now = new Date();
+            const options = {
+                weekday: 'long', // Menampilkan hari dalam format panjang
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+        });
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

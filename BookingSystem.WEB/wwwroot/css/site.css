@@ -1,0 +1,80 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.navbar {
+    height: 100px;
+    background-color: darkblue;
+    color: white;
+}
+
+    .navbar a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .navbar .nav-item {
+        padding: 5px;
+    }
+
+    .navbar .date {
+        color: black;
+        background-color: aqua;
+    }
+
+    .navbar .logout {
+        background-color: red;
+    }
+
+.side {
+    background-color: blue;
+    height: 100vh;
+}
+
+.menu-item h5 {
+    background-color: darkblue; /* Darker background color for the menu */
+    color: white; /* White text color */
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.submenu-item a {
+    color: white; /* Darker gray color for submenu items */
+}
+
+    .submenu-item a:hover {
+        background-color: #e2e6ea; /* Light gray background on hover */
+    }
+
+.main-navbar {
+    background-color: darkblue;
+    height: fit-content;
+}
+
+td img {
+    max-width: 100px;
+    max-height: 50px;
+}
+
+.form-group img {
+    max-width: 100px;
+}
