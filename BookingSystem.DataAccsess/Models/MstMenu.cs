@@ -21,11 +21,5 @@ public partial class MstMenu
 
     public DateTime? DeletedDate { get; set; }
 
-    public virtual MstUser CreatedByNavigation { get; set; } = null!;
-
-    public virtual MstUser? DeletedByNavigation { get; set; }
-
     public virtual ICollection<MstRoleMenu> MstRoleMenus { get; set; } = new List<MstRoleMenu>();
-
-    public virtual MstUser? UpdatedByNavigation { get; set; }
 }

@@ -21,13 +21,7 @@ public partial class MstRoleMenu
 
     public DateTime? DeletedDate { get; set; }
 
-    public virtual MstUser CreatedByNavigation { get; set; } = null!;
-
-    public virtual MstUser? DeletedByNavigation { get; set; }
-
     public virtual MstMenu Menu { get; set; } = null!;
 
     public virtual MstRole Role { get; set; } = null!;
-
-    public virtual MstUser? UpdatedByNavigation { get; set; }
 }

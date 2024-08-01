@@ -85,19 +85,6 @@ public partial class BookingDatabaseContext : DbContext
             entity.Property(e => e.DeletedDate).HasColumnType("timestamp(6) without time zone");
             entity.Property(e => e.MenuName).HasMaxLength(100);
             entity.Property(e => e.UpdatedDate).HasColumnType("timestamp(6) without time zone");
-
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.MstMenuCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_createdby");
-
-            entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.MstMenuDeletedByNavigations)
-                .HasForeignKey(d => d.DeletedBy)
-                .HasConstraintName("fk_deletedby");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.MstMenuUpdatedByNavigations)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("fk_updatedby");
         });
 
         modelBuilder.Entity<MstResource>(entity =>
@@ -168,15 +155,6 @@ public partial class BookingDatabaseContext : DbContext
             entity.Property(e => e.DeletedDate).HasColumnType("timestamp(6) without time zone");
             entity.Property(e => e.UpdatedDate).HasColumnType("timestamp(6) without time zone");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.MstRoleMenuCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_createdby");
-
-            entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.MstRoleMenuDeletedByNavigations)
-                .HasForeignKey(d => d.DeletedBy)
-                .HasConstraintName("fk_deletedby");
-
             entity.HasOne(d => d.Menu).WithMany(p => p.MstRoleMenus)
                 .HasForeignKey(d => d.Menuid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -186,10 +164,6 @@ public partial class BookingDatabaseContext : DbContext
                 .HasForeignKey(d => d.Roleid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("MstRoleMenu_roleid_fkey");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.MstRoleMenuUpdatedByNavigations)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("fk_updatedby");
         });
 
         modelBuilder.Entity<MstRoom>(entity =>
@@ -256,22 +230,9 @@ public partial class BookingDatabaseContext : DbContext
             entity.Property(e => e.RoleId).HasColumnName("RoleID");
             entity.Property(e => e.UpdatedDate).HasColumnType("timestamp(6) without time zone");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.InverseCreatedByNavigation)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_createdby");
-
-            entity.HasOne(d => d.DeletedByNavigation).WithMany(p => p.InverseDeletedByNavigation)
-                .HasForeignKey(d => d.DeletedBy)
-                .HasConstraintName("fk_deletedby");
-
             entity.HasOne(d => d.Role).WithMany(p => p.MstUsers)
                 .HasForeignKey(d => d.RoleId)
                 .HasConstraintName("RoleID");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.InverseUpdatedByNavigation)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("fk_updatedby");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -33,29 +33,5 @@ public partial class MstUser
 
     public int? DeletedBy { get; set; }
 
-    public virtual MstUser CreatedByNavigation { get; set; } = null!;
-
-    public virtual MstUser? DeletedByNavigation { get; set; }
-
-    public virtual ICollection<MstUser> InverseCreatedByNavigation { get; set; } = new List<MstUser>();
-
-    public virtual ICollection<MstUser> InverseDeletedByNavigation { get; set; } = new List<MstUser>();
-
-    public virtual ICollection<MstUser> InverseUpdatedByNavigation { get; set; } = new List<MstUser>();
-
-    public virtual ICollection<MstMenu> MstMenuCreatedByNavigations { get; set; } = new List<MstMenu>();
-
-    public virtual ICollection<MstMenu> MstMenuDeletedByNavigations { get; set; } = new List<MstMenu>();
-
-    public virtual ICollection<MstMenu> MstMenuUpdatedByNavigations { get; set; } = new List<MstMenu>();
-
-    public virtual ICollection<MstRoleMenu> MstRoleMenuCreatedByNavigations { get; set; } = new List<MstRoleMenu>();
-
-    public virtual ICollection<MstRoleMenu> MstRoleMenuDeletedByNavigations { get; set; } = new List<MstRoleMenu>();
-
-    public virtual ICollection<MstRoleMenu> MstRoleMenuUpdatedByNavigations { get; set; } = new List<MstRoleMenu>();
-
     public virtual MstRole? Role { get; set; }
-
-    public virtual MstUser? UpdatedByNavigation { get; set; }
 }
