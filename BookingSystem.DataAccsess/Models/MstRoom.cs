@@ -32,4 +32,6 @@ public partial class MstRoom
     public DateTime? DeletedDate { get; set; }
 
     public virtual MstLocation Location { get; set; } = null!;
+
+    public virtual ICollection<MstRoomResource> MstRoomResources { get; set; } = new List<MstRoomResource>();
 }

@@ -1,6 +1,8 @@
 ﻿using BookingSystem.DataAccsess.Models;
+using BookingSystem.DataModel;
 using BookingSystem.DataModel.Master.BookingCode;
 using BookingSystem.DataModel.Master.Location;
+using BookingSystem.DataModel.Master.Room;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,15 @@ namespace BookingSystem.Provider
             loc.DeletedBy = 3;
             loc.DeletedDate = DateTime.Now;
             _context.SaveChanges();
+        }
+
+        public List<LocationDropdown> GetLocationDropdown()
+        {
+            return _context.MstLocations.Select(l => new LocationDropdown
+            {
+                Id = l.LocationId,
+                Name = l.LocationName
+            }).ToList();
         }
     }
 }

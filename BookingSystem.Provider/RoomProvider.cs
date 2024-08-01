@@ -1,4 +1,5 @@
 ﻿using BookingSystem.DataAccsess.Models;
+using BookingSystem.DataModel;
 using BookingSystem.DataModel.Master.Resource;
 using BookingSystem.DataModel.Master.Room;
 using System;
@@ -28,15 +29,16 @@ namespace BookingSystem.Provider
         {
             return _context.MstResources.Where(a => !a.DeletedDate.HasValue);
         }
-        //public IQueryable<MstRoomResource> AllRoomResource()
-        //{
-        //    return _context.MstRoomResources.Where(a => !a.DelDate.HasValue);
-        //}
+        public IQueryable<MstRoomResource> AllRoomResource()
+        {
+            return _context.MstRoomResources.Where(a => !a.DeletedDate.HasValue);
+        }
 
         private MstRoom Get(int id)
         {
             return _context.MstRooms.SingleOrDefault(a => a.RoomId == id);
         }
+
         public void InsertRoom(CreateEditRoomVM model)
         {
             var room = new MstRoom
@@ -116,33 +118,34 @@ namespace BookingSystem.Provider
             room.Description = list.Description;
             room.Capasity = list.Capacity;
             room.ColorRoom = list.Color;
-            //room.RoomRes = GetRoomResource(room.ID);
-            //room.Resource = GetResource();
+            room.RoomRes = GetRoomResource(room.ID);
+            room.Resource = GetResource();
             return room;
         }
-        //public List<CreateEditRoomResVM> GetResource()
-        //{
-        //    var listRes = from a in AllResource()
-        //                  select new CreateEditRoomResVM
-        //                  {
-        //                      ID = a.Id,
-        //                      ResourceId = a.Id,
-        //                      ResourceName = a.Name,
+        public List<CreateEditRoomResVM> GetResource()
+        {
+            var listRes = from a in AllResource()
+                          select new CreateEditRoomResVM
+                          {
+                              ID = a.ResourceId,
+                              ResourceId = a.ResourceId,
+                              ResourceName = a.ResourceName,
 
-        //                  };
-        //    return listRes.ToList();
-        //}
-        //public List<CreateEditRoomResVM> GetRoomResource(int roomid)
-        //{
-        //    var listRes = from a in AllRoomResource()
-        //                  where a.RoomId == roomid
-        //                  select new CreateEditRoomResVM
-        //                  {
-        //                      ID = a.Id,
-        //                      ResourceId = a.Id
+                          };
+            return listRes.ToList();
+        }
 
-        //                  };
-        //    return listRes.ToList();
-        //}
+        public List<CreateEditRoomResVM> GetRoomResource(int roomid)
+        {
+            var listRes = from a in AllRoomResource()
+                          where a.RoomId == roomid
+                          select new CreateEditRoomResVM
+                          {
+                              ID = a.Id,
+                              ResourceId = a.Id
+
+                          };
+            return listRes.ToList();
+        }
     }
 }

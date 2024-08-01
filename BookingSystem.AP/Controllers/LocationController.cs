@@ -17,6 +17,19 @@ namespace BookingSystem.API.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult<List<LocationDropdown>> GetLocationDropdown()
+        {
+            try
+            {
+                var dropdown = LocProvider.GetLocationDropdown();
+                return Ok(dropdown);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public ActionResult CreateEdit(CreatEditLVM model)
         {

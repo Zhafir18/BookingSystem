@@ -31,6 +31,8 @@ public partial class BookingDatabaseContext : DbContext
 
     public virtual DbSet<MstRoom> MstRooms { get; set; }
 
+    public virtual DbSet<MstRoomResource> MstRoomResources { get; set; }
+
     public virtual DbSet<MstUser> MstUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -210,6 +212,28 @@ public partial class BookingDatabaseContext : DbContext
                 .HasForeignKey(d => d.LocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RoomLocation");
+        });
+
+        modelBuilder.Entity<MstRoomResource>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("MstRoomResource_pkey");
+
+            entity.ToTable("MstRoomResource");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+            entity.Property(e => e.CreatedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.DeletedDate).HasColumnType("timestamp without time zone");
+            entity.Property(e => e.UpdatedDate).HasColumnType("timestamp without time zone");
+
+            entity.HasOne(d => d.Resource).WithMany(p => p.MstRoomResources)
+                .HasForeignKey(d => d.ResourceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Resource");
+
+            entity.HasOne(d => d.Room).WithMany(p => p.MstRoomResources)
+                .HasForeignKey(d => d.RoomId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Room");
         });
 
         modelBuilder.Entity<MstUser>(entity =>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingSystem.DataModel.Master.Location;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,9 @@ namespace BookingSystem.DataModel.Master.Room
         public int LocationID {  get; set; }
         public int Capasity {  get; set; }
         public string? ColorRoom {  get; set; }
-        //public List<CreateEditRoomResVM>? RoomRes { get; set; }=new List<CreateEditRoomResVM>();
-        //public List<CreateEditRoomResVM>? Resource { get; set; } =new List<CreateEditRoomResVM>();
+        public List<CreateEditRoomResVM>? RoomRes { get; set; } = new List<CreateEditRoomResVM>();
+        public List<CreateEditRoomResVM>? Resource { get; set; } = new List<CreateEditRoomResVM>();
+
+        public List<LocationDropdown>? LocationDropdown { get; set; }
     }
 }

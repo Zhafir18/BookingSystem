@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<BookingCodeProvider>();
+builder.Services.AddScoped<LocationProvider>();
 builder.Services.AddScoped<BookingDatabaseContext>();
 
 // Register IHttpClientFactory

@@ -26,4 +26,6 @@ public partial class MstResource
     public DateTime? DeletedDate { get; set; }
 
     public virtual ICollection<MstResourceCode> MstResourceCodes { get; set; } = new List<MstResourceCode>();
+
+    public virtual ICollection<MstRoomResource> MstRoomResources { get; set; } = new List<MstRoomResource>();
 }

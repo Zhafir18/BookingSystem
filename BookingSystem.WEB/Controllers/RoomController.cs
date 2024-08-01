@@ -2,14 +2,19 @@
 using System.Text.Json;
 using System.Text;
 using BookingSystem.DataModel.Master.Room;
+using BookingSystem.Provider;
+using BookingSystem.DataModel;
+using BookingSystem.DataModel.Master.Location;
 
 namespace BookingSystem.WEB.Controllers
 {
     public class RoomController : Controller
     {
         private IHttpClientFactory _httpClientFactory;
-        public RoomController(IHttpClientFactory httpClientFactory)
+        private LocationProvider _locationProvider;
+        public RoomController(IHttpClientFactory httpClientFactory, LocationProvider locationProvider)
         {
+            _locationProvider = locationProvider;
             _httpClientFactory = httpClientFactory;
         }
         public async Task<IActionResult> Index(int page = 1)
@@ -61,8 +66,29 @@ namespace BookingSystem.WEB.Controllers
                     }
                 }
             }
+
+            var locationUrl = "http://localhost:5156/api/Location";
+            var locationResponse = await client.GetAsync(locationUrl);
+            if (locationResponse.IsSuccessStatusCode)
+            {
+                var locationResponseString = await locationResponse.Content.ReadAsStringAsync();
+                var option = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
+                try
+                {
+                    model.LocationDropdown = JsonSerializer.Deserialize<List<LocationDropdown>>(locationResponseString, option);
+                }
+                catch (Exception ex)
+                {
+                    return View("Error");
+                }
+            }
+
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Upsert(CreateEditRoomVM dto)
         {
