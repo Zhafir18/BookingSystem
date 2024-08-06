@@ -1,5 +1,7 @@
 ﻿using BookingSystem.DataAccsess.Models;
+using BookingSystem.DataModel.Master.Location;
 using BookingSystem.DataModel.Master.Role;
+using BookingSystem.DataModel.Master.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,23 +65,6 @@ namespace BookingSystem.Provider
             }
         }
 
-        public IndexRoleVM GetIndexRole(int page)
-        {
-            var indexRole = new IndexRoleVM();
-            var listRole = from a in ALlRole()
-                           select new ListRoleVM
-                           {
-                               ID = a.RoleId,
-                               Name = a.RoleName
-                           };
-            if (page > 0)
-            {
-                listRole = listRole.Skip((page - 1) * 10).Take(10);
-            }
-            indexRole.List = listRole.ToList();
-            return indexRole;
-        }
-
         public CreateEditRoleVM GetOne(int id)
         {
             var list = GetRole(id);
@@ -87,6 +72,15 @@ namespace BookingSystem.Provider
             role.ID = id;
             role.Name = list.RoleName;
             return role;
+        }
+
+        public List<RoleDropdown> GetRoleDropdown()
+        {
+            return _context.MstRoles.Select(l => new RoleDropdown
+            {
+                Id = l.RoleId,
+                Name = l.RoleName
+            }).ToList();
         }
     }
 }

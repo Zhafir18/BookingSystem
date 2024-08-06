@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<BookingCodeProvider>();
 builder.Services.AddScoped<LocationProvider>();
+builder.Services.AddScoped<RoleProvider>();
 builder.Services.AddScoped<BookingDatabaseContext>();
 
 // Register IHttpClientFactory

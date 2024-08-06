@@ -12,8 +12,10 @@ namespace BookingSystem.DataModel.Master.User
         public int UserId { get; set; }
         public string LoginName { get; set; }
         public string Password { get; set; }
-        public string RePassword { get; set; }
-        public int RoleId { get; set; }
-        public List<RoleDropdown> RoleDropdown {  get; set; }
+        public string FirstName { get; set; }
+        public string? MiddleName { get; set; }
+        public string? LastName { get; set; }
+        public int? RoleId { get; set; }
+        public IEnumerable<RoleDropdown>? RoleDropdown {  get; set; }
     }
 }

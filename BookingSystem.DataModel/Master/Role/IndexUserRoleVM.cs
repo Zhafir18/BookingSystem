@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookingSystem.DataModel.Master.Role
 {
-    public class ListRoleVM
+    public class IndexUserRoleVM
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public IEnumerable<UserRoleVM> list { get; set; } = new List<UserRoleVM>();
     }
 }

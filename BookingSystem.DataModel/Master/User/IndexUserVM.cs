@@ -8,6 +8,7 @@ namespace BookingSystem.DataModel.Master.User
 {
     public class IndexUserVM
     {
-        public List<ListUserVM> List = new List<ListUserVM>();
+        public IEnumerable<ListUserVM> list { get; set; } = new List<ListUserVM>();
+
     }
 }

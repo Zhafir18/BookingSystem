@@ -1,7 +1,7 @@
-﻿@using BookingSystem.DataModel.Master.Role;
-@model IndexUserRoleVM;
+﻿@using BookingSystem.DataModel.Master.User;
+@model IndexUserVM;
 @{
-    ViewData["Title"] = "Master Role";
+    ViewData["Title"] = "Master User";
 }
 
 <div class="container-fluid">
@@ -21,7 +21,7 @@
     }
 
     <div class="mb-3">
-        <a asp-action="Upsert" asp-controller="Role" class="btn btn-primary">Add New</a>
+        <a asp-action="Upsert" asp-controller="User" class="btn btn-primary">Add New</a>
     </div>
 
     @if (Model != null && Model.list != null && Model.list.Any())
@@ -30,7 +30,8 @@
             <thead>
                 <tr>
                     <th>Actions</th>
-                    <th>Name</th>
+                    <th>Login Name</th>
+                    <th>Role</th>
                     <th>Created By</th>
                     <th>Created Date</th>
                     <th>Updated By</th>
@@ -49,7 +50,8 @@
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
-                        <td>@row.Name</td>
+                        <td>@row.LoginName</td>
+                        <td>@row.RoleName</td>
                         <td>@row.CreatedBy</td>
                         <td>@row.CreatedDate</td>
                         <td>@row.UpdatedBy</td>

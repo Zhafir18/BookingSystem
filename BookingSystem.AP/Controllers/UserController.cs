@@ -1,5 +1,4 @@
-﻿using BookingSystem.DataModel.Master.Location;
-using BookingSystem.DataModel.Master.Role;
+﻿using BookingSystem.DataModel.Master.User;
 using BookingSystem.Provider;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,22 +7,22 @@ namespace BookingSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private RoleProvider _roleProvider;
+        private UserProvider userProvider;
 
-        public RoleController(RoleProvider roleProvider)
+        public UserController(UserProvider userProvider)
         {
-            _roleProvider = roleProvider;
+            this.userProvider = userProvider;
         }
 
         [HttpGet]
-        public ActionResult<List<RoleDropdown>> GetRoleDropdown()
+        public ActionResult Index()
         {
             try
             {
-                var dropdown = _roleProvider.GetRoleDropdown();
-                return Ok(dropdown);
+                var data = userProvider.GetIndexUser();
+                return Ok(data);
             }
             catch (Exception ex)
             {
@@ -32,11 +31,11 @@ namespace BookingSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetOne(int id)
+        public ActionResult Get(int id)
         {
             try
             {
-                var data = _roleProvider.GetOne(id);
+                var data = userProvider.GetOne(id);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -46,17 +45,17 @@ namespace BookingSystem.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateEdit(CreateEditRoleVM model)
+        public ActionResult CreateEdit(CreateEditUserVM model)
         {
             try
             {
-                if (model.ID > 0)
+                if (model.UserId > 0)
                 {
-                    _roleProvider.UpdateRole(model);
+                    userProvider.UpdateUser(model);
                 }
                 else
                 {
-                    _roleProvider.InsertRole(model);
+                    userProvider.InsertUser(model);
                 }
                 return Ok();
             }
@@ -71,8 +70,22 @@ namespace BookingSystem.API.Controllers
         {
             try
             {
-                _roleProvider.DeleteRole(id);
+                userProvider.DeleteUser(id);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("userrole")]
+        public ActionResult UserRole()
+        {
+            try
+            {
+                var data = userProvider.GetUserRoleIndex();
+                return Ok(data);
             }
             catch (Exception ex)
             {

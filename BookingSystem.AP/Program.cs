@@ -15,6 +15,7 @@ builder.Services.AddScoped<LocationProvider>();
 builder.Services.AddScoped<ResourceProvider>();
 builder.Services.AddScoped<RoleProvider>();
 builder.Services.AddScoped<RoomProvider>();
+builder.Services.AddScoped<UserProvider>();
 builder.Services.AddScoped<BookingDatabaseContext>();
 
 var app = builder.Build();
